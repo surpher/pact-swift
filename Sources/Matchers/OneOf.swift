@@ -18,13 +18,10 @@
 import Foundation
 @_implementationOnly import PactSwiftToolbox
 
-/// Defines a Pact matcher that validates against one of the provided values.
-///
-/// - parameter values: Possible values
-/// - parameter use: The value `MockService` will return
-///
 public extension Matcher {
 
+	/// Defines a Pact matcher that validates against one of the provided values.
+	///
 	struct OneOf: MatchingRuleExpressible {
 		internal let value: Any
 		internal let term: String
@@ -47,7 +44,9 @@ public extension Matcher {
 		/// - parameter values: Possible values
 		/// - parameter use: The value `MockService` will return
 		///
-		init(_ values: String..., use: String) {
+		/// `use` must match one of the provided values!
+		///
+		init(_ values: AnyHashable..., use: AnyHashable) {
 			self.init(values: values, use: use)
 		}
 
@@ -56,28 +55,11 @@ public extension Matcher {
 		/// - parameter values: Possible values
 		/// - parameter use: The value `MockService` will return
 		///
-		init(_ values: Int..., use: Int) {
-			self.init(values: values, use: use)
-		}
-
-		/// Defines a Pact matcher that validates against one of the provided values.
+		/// `use` must match one of the provided values!
 		///
-		/// - parameter values: Possible values
-		/// - parameter use: The value `MockService` will return
-		///
-		init(values: [String], use: String) {
+		init(values: [AnyHashable], use: AnyHashable) {
 			self.value = use
-			self.term = values.joined(separator: "|")
-		}
-
-		/// Defines a Pact matcher that validates against one of the provided values.
-		///
-		/// - parameter values: Possible values
-		/// - parameter use: The value `MockService` will return
-		///
-		init(values: [Int], use: Int) {
-			self.value = use
-			self.term = values.map { String($0) }.joined(separator: "|")
+			self.term = values.map { "\($0)" }.joined(separator: "|")
 		}
 	}
 

@@ -33,4 +33,10 @@ class OneOfTests: XCTestCase {
 		XCTAssertEqual(testResult.value as? Int, 1)
 	}
 
+	func testMatcher_OneOf_InitsWithDecimal() throws {
+		let testResult = try XCTUnwrap(Matcher.OneOf(Decimal(100.15), Decimal(100.24), use: Decimal(100.24)))
+		XCTAssertEqual(testResult.term, "100.15|100.24")
+		XCTAssertEqual(testResult.value as? Decimal, Decimal(100.24))
+	}
+
 }
