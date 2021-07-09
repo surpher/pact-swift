@@ -17,4 +17,5 @@
 
 import Foundation
 
+/// A protocol defining a Type that can be used as a request's path parameter (eg: a RegexLike matcher)
 public protocol PactPathParameter { }
