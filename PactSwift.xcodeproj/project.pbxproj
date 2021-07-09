@@ -401,9 +401,9 @@
 				AD7891BF24415C710014BCC8 /* IntegerLikeTests.swift */,
 				ADA40181253033C400265DF3 /* MatchNullTests.swift */,
 				ADEDDF082547CFC200A45AD2 /* ObjCMatcherTests.swift */,
+				ADC3727326982D88000DA90B /* OneOfTests.swift */,
 				ADD3C27124416A3E002E73B9 /* RegexLikeTests.swift */,
 				AD7891B92441512E0014BCC8 /* SomethingLikeTests.swift */,
-				ADC3727326982D88000DA90B /* OneOfTests.swift */,
 			);
 			path = Matchers;
 			sourceTree = "<group>";

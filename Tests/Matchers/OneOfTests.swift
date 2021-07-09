@@ -25,18 +25,32 @@ class OneOfTests: XCTestCase {
 		let testResult = try XCTUnwrap(Matcher.OneOf("enabled", "disabled", use: "enabled"))
 		XCTAssertEqual(testResult.term, "enabled|disabled")
 		XCTAssertEqual(testResult.value as? String, "enabled")
+		XCTAssertNotNil(testResult.rules[0]["match"])
+		XCTAssertNotNil(testResult.rules[0]["regex"])
 	}
 
 	func testMatcher_OneOf_InitsWithIntValue() throws {
 		let testResult = try XCTUnwrap(Matcher.OneOf(1, 2, 3, use: 1))
 		XCTAssertEqual(testResult.term, "1|2|3")
 		XCTAssertEqual(testResult.value as? Int, 1)
+		XCTAssertNotNil(testResult.rules[0]["match"])
+		XCTAssertNotNil(testResult.rules[0]["regex"])
 	}
 
 	func testMatcher_OneOf_InitsWithDecimal() throws {
 		let testResult = try XCTUnwrap(Matcher.OneOf(Decimal(100.15), Decimal(100.24), use: Decimal(100.24)))
 		XCTAssertEqual(testResult.term, "100.15|100.24")
 		XCTAssertEqual(testResult.value as? Decimal, Decimal(100.24))
+		XCTAssertNotNil(testResult.rules[0]["match"])
+		XCTAssertNotNil(testResult.rules[0]["regex"])
+	}
+
+	func testMatcher_OneOf_InitsWithFloat() throws {
+		let testResult = try XCTUnwrap(Matcher.OneOf(Float(100.15), 100.24, use: 100.24))
+		XCTAssertEqual(testResult.term, "100.15|100.24")
+		XCTAssertEqual(testResult.value as? Float, 100.24)
+		XCTAssertNotNil(testResult.rules[0]["match"])
+		XCTAssertNotNil(testResult.rules[0]["regex"])
 	}
 
 }
