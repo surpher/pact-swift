@@ -1,5 +1,5 @@
 //
-//  Created by Marko Justinek on 10/9/20.
+//  Created by Marko Justinek on 9/7/21.
 //  Copyright © 2020 Marko Justinek. All rights reserved.
 //
 //  Permission to use, copy, modify, and/or distribute this software for any
@@ -17,17 +17,11 @@
 
 import Foundation
 
-public struct Matcher {
-	// This is a namespace placeholder.
-	// Implement any matchers as `Struct`s in an Matcher extension.
+extension Sequence where Iterator.Element: Hashable {
 
-	// Make sure PactBuilder.swift processes the matcher.
-}
-
-// MARK: - Objective-C
-
-protocol ObjcMatcher {
-
-	var type: MatchingRuleExpressible { get }
+	var unique: [Iterator.Element] {
+		var seen: Set<Iterator.Element> = []
+		return filter { seen.insert($0).inserted }
+	}
 
 }

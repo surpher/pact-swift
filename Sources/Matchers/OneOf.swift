@@ -21,6 +21,7 @@ import Foundation
 public extension Matcher {
 
 	/// Defines a Pact matcher that validates against one of the provided values.
+	/// Uses the first provided value in consumer tests. Removes duplicate values.
 	struct OneOf: MatchingRuleExpressible {
 		internal let value: Any
 		internal let term: String
@@ -37,27 +38,37 @@ public extension Matcher {
 		// MARK: - Initializer
 
 		/// Defines a Pact matcher that validates against one of the provided `String` values.
-		init(_ values: String..., use: String) {
-			self.value = use
-			self.term = values.joined(separator: "|")
+		/// Uses the first provided value in consumer tests and removes duplicate values.
+		init(_ values: String...) {
+			self.value = values.first as Any
+			self.term = Self.regexed(values)
 		}
 
 		/// Defines a Pact matcher that validates against one of the provided `Integer` values.
-		init(_ values: Int..., use: Int) {
-			self.value = use
-			self.term = values.map { String($0) }.joined(separator: "|")
+		/// Uses the first provided value in consumer tests and removes duplicate values.
+		init(_ values: Int...) {
+			self.value = values.first as Any
+			self.term = Self.regexed(values)
 		}
 
 		/// Defines a Pact matcher that validates against one of the provided `Decimal` values.
-		init(_ values: Decimal..., use: Decimal) {
-			self.value = use
-			self.term = values.map { "\($0)" }.joined(separator: "|")
+		/// Uses the first provided value in consumer tests and removes duplicate values.
+		init(_ values: Decimal...) {
+			self.value = values.first as Any
+			self.term = Self.regexed(values)
 		}
 
 		/// Defines a Pact matcher that validates against one of the provided `Float` values.
-		init(_ values: Float..., use: Float) {
-			self.value = use
-			self.term = values.map { String($0) }.joined(separator: "|")
+		/// Uses the first provided value in consumer tests and removes duplicate values.
+		init(_ values: Float...) {
+			self.value = values.first as Any
+			self.term = Self.regexed(values)
+		}
+
+		// MARK: - Private
+
+		private static func regexed(_ values: [AnyHashable]) -> String {
+			values.unique.map { "^\($0)$" }.joined(separator: "|")
 		}
 	}
 
